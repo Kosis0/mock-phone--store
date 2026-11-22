@@ -1,69 +1,12 @@
-import Image from "next/image";
-
+"use client";
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { MOCK_IPHONES } from "@/data/mockIphones";
+import { useCompare } from "@/context/CompareContext";
+import IPhoneRender from "@/components/IPhoneRender";
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+ const [series,setSeries]=useState("All models"),[rate,setRate]=useState("Any refresh rate"),[port,setPort]=useState("Any port"),[ai,setAi]=useState(false),[finishIndex,setFinishIndex]=useState<Record<string,number>>({}); const {slugs,toggle}=useCompare();
+ const phones=useMemo(()=>MOCK_IPHONES.filter(p=>(series==="All models"||p.series===series)&&(rate==="Any refresh rate"||p.refreshRateHz===(rate==="120Hz ProMotion"?120:60))&&(port==="Any port"||p.portType===port)&&(!ai||p.chipset.supportsAppleIntelligence)),[series,rate,port,ai]);
+ return <main><section className="hero"><div className="hero-content"><div className="eyebrow"><i/> THE IPHONE TECHNICAL INDEX <span>2026 EDITION</span></div><h1>Every iPhone.<br/><em>Every detail.</em></h1><p>Specifications, identifiers, and hardware comparisons — all in one precise reference.</p><div className="hero-meta"><span><b>{MOCK_IPHONES.length}</b> MODELS INDEXED</span><span><i/> DATA UPDATED NOV 2026</span></div></div><div className="hero-visual"><div className="hero-circle"/><div className="hero-phone hero-phone-back"><IPhoneRender finish={MOCK_IPHONES[1].finishes[1]} dimensions={MOCK_IPHONES[1].dimensionsMm} hasDynamicIsland /></div><div className="hero-phone hero-phone-front"><IPhoneRender finish={MOCK_IPHONES[0].finishes[0]} dimensions={MOCK_IPHONES[0].dimensionsMm} hasDynamicIsland /></div><div className="hero-note"><span>01 / 07</span><b>Hardware<br/>at a glance</b></div></div></section>
+ <section className="catalog-wrap"><div className="section-heading"><div><div className="eyebrow">BROWSE THE LINEUP <span>01 — CATALOG</span></div><h2>Find your iPhone.</h2></div><div className="sort-label">SHOWING <b>{phones.length} DEVICES</b><span>·</span> SORT: NEWEST FIRST</div></div><div className="catalog-layout"><aside className="filters"><div className="filter-top"><strong>Filters</strong><button onClick={()=>{setSeries("All models");setRate("Any refresh rate");setPort("Any port");setAi(false)}}>RESET</button></div><label className="filter-label">SERIES</label><select value={series} onChange={e=>setSeries(e.target.value)}>{["All models","Standard","Plus","Pro","Pro Max","SE","mini"].map(x=><option key={x}>{x}</option>)}</select><label className="filter-label">DISPLAY</label><select value={rate} onChange={e=>setRate(e.target.value)}>{["Any refresh rate","60Hz","120Hz ProMotion"].map(x=><option key={x}>{x}</option>)}</select><label className="filter-label">CONNECTOR</label><select value={port} onChange={e=>setPort(e.target.value)}>{["Any port","USB-C","Lightning"].map(x=><option key={x}>{x}</option>)}</select><label className="toggle-filter"><input type="checkbox" checked={ai} onChange={e=>setAi(e.target.checked)}/><span className="toggle-ui"/> Apple Intelligence ready</label><div className="filter-foot"><span>DATABASE STATUS</span><b><i/> ALL SYSTEMS NORMAL</b></div></aside><div className="product-grid">{phones.map((p,index)=>{const f=p.finishes[finishIndex[p.slug]??0];return <article className="product-card" key={p.slug}><div className="card-top"><span className="model-tag">{p.series.toUpperCase()}</span><span className="model-year">{String(p.releaseYear).slice(2)} / MODEL</span></div><Link href={`/iphone/${p.slug}`} className="card-art"><IPhoneRender finish={f} dimensions={p.dimensionsMm} hasDynamicIsland={p.hasDynamicIsland}/><span className="art-index">0{index+1}</span><span className="art-arrow">↗</span></Link><div className="card-info"><div className="card-title"><div><h3>{p.name}</h3><span>{p.releaseYear} <i/> {p.launchMsrp} launch</span></div><span className="chip-badge">{p.chipset.name}</span></div><div className="spec-pills"><div><small>DISPLAY</small><b>{p.displaySizeIn}″ OLED</b></div><div><small>MAIN CAMERA</small><b>{p.cameras[0].megapixels} MP</b></div><div><small>BATTERY</small><b>{p.batteryMah.toLocaleString()} mAh</b></div></div><div className="card-bottom"><div className="swatches">{p.finishes.map((c,i)=><button key={c.name} aria-label={c.name} title={c.name} onClick={()=>setFinishIndex({...finishIndex,[p.slug]:i})} className={i===(finishIndex[p.slug]??0)?"active":""} style={{background:c.hexCode}}/>)}</div><button onClick={()=>toggle(p.slug)} className={`compare-button ${slugs.includes(p.slug)?"selected":""}`}>{slugs.includes(p.slug)?"✓ Added":"+ Compare"}</button></div></div></article>})}</div></div><div className="catalog-end"><span>INDEX COMPLETE</span><i/><span>END OF CURRENT LINEUP</span></div></section></main>;
 }
