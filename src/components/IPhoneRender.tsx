@@ -2,23 +2,34 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import type { Finish } from "@/types/iphone";
+import IPhoneStudioSvg from "@/components/IPhoneStudioSvg";
+import type { CameraLayout, Finish, FrontStyle } from "@/types/iphone";
 
 type IPhoneRenderProps = {
   finish: Finish;
   dimensions: string;
   hasDynamicIsland: boolean;
+  frontStyle?: FrontStyle;
+  cameraLayout?: CameraLayout;
   className?: string;
+  priority?: boolean;
 };
 
 export default function IPhoneRender({
   finish,
   dimensions,
   hasDynamicIsland,
+  frontStyle,
+  cameraLayout,
   className = "",
+  priority = false,
 }: IPhoneRenderProps) {
   const [failedImage, setFailedImage] = useState<string | null>(null);
-  const imageFailed = failedImage === finish.imageUrl;
+  const imageUrl = finish.imageUrl;
+  const imageFailed = Boolean(imageUrl && failedImage === imageUrl);
+
+  const resolvedFrontStyle: FrontStyle =
+    frontStyle ?? (hasDynamicIsland ? "dynamic-island" : "notch-narrow");
 
   return (
     <div
@@ -26,30 +37,48 @@ export default function IPhoneRender({
       role="img"
       aria-label={`${finish.name} iPhone, ${dimensions}`}
     >
-      {!imageFailed ? (
+      {imageUrl && !imageFailed ? (
         <Image
-          src={finish.imageUrl}
+          src={imageUrl}
           alt=""
           width={720}
           height={900}
-          sizes="(max-width: 680px) 35vw, 220px"
-          onError={() => setFailedImage(finish.imageUrl)}
+          priority={priority}
+          sizes="(max-width: 680px) 60vw, 280px"
+          onError={() => setFailedImage(imageUrl)}
           className="phone-image"
         />
-      ) : (
+      ) : imageFailed ? (
         <div
           className="phone-shell"
           style={{ "--phone-color": finish.hexCode } as React.CSSProperties}
         >
           <div className="phone-side-button" />
-          <div className="camera-island"><i /><i /><i /><b /></div>
+          <div className="camera-island">
+            <i />
+            <i />
+            <i />
+            <b />
+          </div>
           <div className="phone-screen">
             <div className="screen-glow" />
-            {hasDynamicIsland ? <div className="dynamic-island" /> : <div className="notch" />}
+            {hasDynamicIsland ? (
+              <div className="dynamic-island" />
+            ) : (
+              <div className="notch" />
+            )}
             <div className="screen-time">9:41</div>
             <div className="screen-bottom" />
           </div>
         </div>
+      ) : (
+        <IPhoneStudioSvg
+          finish={finish}
+          frontStyle={resolvedFrontStyle}
+          cameraLayout={cameraLayout}
+          view="studio"
+          className="phone-studio-render"
+        />
       )}
     </div>
   );

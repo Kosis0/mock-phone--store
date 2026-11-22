@@ -2,106 +2,156 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import IPhoneRender from "@/components/IPhoneRender";
-import type { Finish } from "@/types/iphone";
-
-const MODEL_HEIGHT = 220;
-const DEFAULT_FACE_WIDTH = 88;
+import IPhoneStudioSvg from "@/components/IPhoneStudioSvg";
+import type { CameraLayout, Finish, FrontStyle } from "@/types/iphone";
 
 type IPhoneModel3DProps = {
   finish: Finish;
   dimensions: string;
   hasDynamicIsland: boolean;
+  frontStyle?: FrontStyle;
+  cameraLayout?: CameraLayout;
   className?: string;
   spin?: boolean;
+  rotationY?: number;
+  rotationX?: number;
 };
-
-type FaceSide = "front" | "back";
 
 export default function IPhoneModel3D({
   finish,
   dimensions,
   hasDynamicIsland,
+  frontStyle,
+  cameraLayout,
   className = "",
   spin = false,
+  rotationY = 0,
+  rotationX = 0,
 }: IPhoneModel3DProps) {
-  const [faceWidths, setFaceWidths] = useState({
-    front: DEFAULT_FACE_WIDTH,
-    back: DEFAULT_FACE_WIDTH,
-  });
   const [failed, setFailed] = useState(false);
-  const imageStem = finish.imageUrl.replace(/\.png(?:\?.*)?$/, "");
-  const frontSrc = `${imageStem}-front.png`;
-  const backSrc = `${imageStem}-back.png`;
+  const hasLocalPhoto = Boolean(finish.imageUrl);
+  const imageStem = finish.imageUrl
+    ? finish.imageUrl.replace(/\.png(?:\?.*)?$/, "")
+    : "";
+  const frontSrc = imageStem ? `${imageStem}-front.png` : "";
+  const backSrc = imageStem ? `${imageStem}-back.png` : "";
+
+  const resolvedFrontStyle: FrontStyle =
+    frontStyle ?? (hasDynamicIsland ? "dynamic-island" : "notch-narrow");
+  const isFoldable = resolvedFrontStyle === "foldable";
 
   useEffect(() => {
     setFailed(false);
-    setFaceWidths({ front: DEFAULT_FACE_WIDTH, back: DEFAULT_FACE_WIDTH });
-  }, [finish.imageUrl]);
+  }, [finish.imageUrl, finish.name]);
 
-  const rememberFaceWidth = (side: FaceSide, image: HTMLImageElement) => {
-    if (!image.naturalWidth || !image.naturalHeight) return;
-    const width = (image.naturalWidth / image.naturalHeight) * MODEL_HEIGHT;
-    setFaceWidths((current) => ({ ...current, [side]: width }));
-  };
-
-  if (failed) {
-    return (
-      <IPhoneRender
-        finish={finish}
-        dimensions={dimensions}
-        hasDynamicIsland={hasDynamicIsland}
-        className={`phone-model-fallback ${className}`}
-      />
-    );
-  }
-
-  const modelWidth = Math.max(faceWidths.front, faceWidths.back) + 8;
+  const useRasterFaces = hasLocalPhoto && !failed;
+  const glarePosition = ((rotationY % 360) + 360) % 360;
 
   return (
     <div
-      className={`phone-model${spin ? " is-spinning" : ""} ${className}`}
+      className={`phone-model${spin ? " is-spinning" : ""}${isFoldable ? " is-foldable" : ""} ${className}`}
       role="img"
       aria-label={`${finish.name} iPhone, ${dimensions}`}
-      style={{
-        "--phone-tint": finish.hexCode,
-        "--phone-model-width": `${modelWidth}px`,
-        "--phone-model-half-width": `${modelWidth / 2}px`,
-      } as React.CSSProperties}
+      style={
+        {
+          "--phone-tint": finish.hexCode,
+          "--glare-angle": `${glarePosition}deg`,
+          "--rot-x": `${rotationX}deg`,
+          "--rot-y": `${rotationY}deg`,
+        } as React.CSSProperties
+      }
     >
       <div className="phone-model-core" aria-hidden="true">
-        <span className="phone-model-side phone-model-side-left" />
-        <span className="phone-model-side phone-model-side-right" />
-        <span className="phone-model-cap phone-model-cap-top" />
-        <span className="phone-model-cap phone-model-cap-bottom" />
-        <div className="phone-model-face phone-model-face-back" style={{ width: `${faceWidths.back}px` }}>
-          <Image
-            src={backSrc}
-            alt=""
-            width={720}
-            height={900}
-            sizes="160px"
-            draggable={false}
-            onLoad={(event) => rememberFaceWidth("back", event.currentTarget)}
-            onError={() => setFailed(true)}
-            onDragStart={(event) => event.preventDefault()}
-            className="phone-model-image"
-          />
+        <div className="phone-model-side phone-model-side-left">
+          <span className="chassis-antenna antenna-top" />
+          <span className="chassis-btn btn-action" title="Action Button" />
+          <span className="chassis-btn btn-vol-up" title="Volume Up" />
+          <span className="chassis-btn btn-vol-down" title="Volume Down" />
+          <span className="chassis-antenna antenna-bottom" />
         </div>
-        <div className="phone-model-face phone-model-face-front" style={{ width: `${faceWidths.front}px` }}>
-          <Image
-            src={frontSrc}
-            alt=""
-            width={720}
-            height={900}
-            sizes="160px"
-            draggable={false}
-            onLoad={(event) => rememberFaceWidth("front", event.currentTarget)}
-            onError={() => setFailed(true)}
-            onDragStart={(event) => event.preventDefault()}
-            className="phone-model-image"
+
+        <div className="phone-model-side phone-model-side-right">
+          <span className="chassis-antenna antenna-top" />
+          <span className="chassis-btn btn-power" title="Side Button" />
+          <span
+            className="chassis-btn btn-camera-control"
+            title="Camera Control"
           />
+          <span className="chassis-antenna antenna-bottom" />
         </div>
+
+        <div className="phone-model-cap phone-model-cap-top">
+          <span className="chassis-antenna antenna-top-center" />
+        </div>
+
+        <div className="phone-model-cap phone-model-cap-bottom">
+          <div className="bottom-ports">
+            <span className="speaker-grille" />
+            <span className="connector-port" />
+            <span className="speaker-grille" />
+          </div>
+        </div>
+
+        <div className="phone-model-face phone-model-face-back">
+          <div className="phone-face-surface">
+            {useRasterFaces ? (
+              <Image
+                src={backSrc}
+                alt=""
+                width={720}
+                height={900}
+                sizes="220px"
+                draggable={false}
+                onError={() => setFailed(true)}
+                onDragStart={(event) => event.preventDefault()}
+                className="phone-model-image"
+              />
+            ) : (
+              <IPhoneStudioSvg
+                finish={finish}
+                frontStyle={resolvedFrontStyle}
+                cameraLayout={cameraLayout}
+                view="back"
+                className="phone-model-svg"
+              />
+            )}
+            <div className="phone-back-glass-sheen" />
+            <div className="phone-chassis-rim" />
+          </div>
+        </div>
+
+        <div className="phone-model-face phone-model-face-front">
+          <div className="phone-face-surface">
+            {useRasterFaces ? (
+              <Image
+                src={frontSrc}
+                alt=""
+                width={720}
+                height={900}
+                sizes="220px"
+                draggable={false}
+                onError={() => setFailed(true)}
+                onDragStart={(event) => event.preventDefault()}
+                className="phone-model-image"
+              />
+            ) : (
+              <IPhoneStudioSvg
+                finish={finish}
+                frontStyle={resolvedFrontStyle}
+                cameraLayout={cameraLayout}
+                view="front"
+                className="phone-model-svg"
+              />
+            )}
+            <div className="phone-screen-glare" />
+            {useRasterFaces && hasDynamicIsland && (
+              <div className="phone-dynamic-island-cutout" />
+            )}
+            <div className="phone-chassis-rim" />
+          </div>
+        </div>
+
+        <div className="phone-model-shadow" />
       </div>
     </div>
   );

@@ -1,126 +1,148 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import IPhoneModel3D from "@/components/IPhoneModel3D";
-import type { Finish } from "@/types/iphone";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import IPhoneStudioSvg from "@/components/IPhoneStudioSvg";
+import type { CameraLayout, Finish, FrontStyle } from "@/types/iphone";
 
 type PhoneViewerProps = {
   finish: Finish;
   dimensions: string;
   hasDynamicIsland: boolean;
+  frontStyle?: FrontStyle;
+  cameraLayout?: CameraLayout;
+  deviceName?: string;
 };
 
-type DragStart = {
-  x: number;
-  y: number;
-  rotation: number;
-  pitch: number;
-  pointerId: number;
-};
+type GalleryAngle = "studio" | "front" | "back";
 
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(max, Math.max(min, value));
+const ANGLES: { id: GalleryAngle; label: string }[] = [
+  { id: "studio", label: "Studio" },
+  { id: "front", label: "Front" },
+  { id: "back", label: "Back" },
+];
 
 export default function PhoneViewer({
   finish,
   dimensions,
   hasDynamicIsland,
+  frontStyle,
+  cameraLayout,
+  deviceName = "iPhone",
 }: PhoneViewerProps) {
-  const [rotation, setRotation] = useState(0);
-  const [pitch, setPitch] = useState(0);
-  const [dragging, setDragging] = useState(false);
-  const dragStart = useRef<DragStart | null>(null);
+  const [angle, setAngle] = useState<GalleryAngle>("studio");
+  const [zoomed, setZoomed] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+
+  const resolvedFrontStyle: FrontStyle =
+    frontStyle ?? (hasDynamicIsland ? "dynamic-island" : "notch-narrow");
 
   useEffect(() => {
-    setRotation(0);
-    setPitch(0);
-  }, [finish.imageUrl]);
+    setZoomed(false);
+    setFailedSrc(null);
+  }, [finish.imageUrl, finish.name]);
 
-  const startDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if ((event.target as HTMLElement).closest("button")) return;
-    if (event.button !== 0) return;
-
-    event.preventDefault();
-    dragStart.current = {
-      x: event.clientX,
-      y: event.clientY,
-      rotation,
-      pitch,
-      pointerId: event.pointerId,
-    };
-    setDragging(true);
-    if (event.currentTarget.setPointerCapture) {
-      event.currentTarget.setPointerCapture(event.pointerId);
-    }
+  const getImageSrc = (view: GalleryAngle): string | undefined => {
+    if (!finish.imageUrl) return undefined;
+    if (view === "studio") return finish.imageUrl;
+    const stem = finish.imageUrl.replace(/\.png(?:\?.*)?$/, "");
+    return `${stem}-${view}.png`;
   };
 
-  const movePhone = (event: React.PointerEvent<HTMLDivElement>) => {
-    const start = dragStart.current;
-    if (!start || start.pointerId !== event.pointerId) return;
-    setRotation(start.rotation + (event.clientX - start.x) * 0.9);
-    setPitch(clamp(start.pitch - (event.clientY - start.y) * 0.35, -22, 22));
-  };
+  const activeSrc = getImageSrc(angle);
+  const showPhoto = Boolean(activeSrc && failedSrc !== activeSrc);
 
-  const finishDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragStart.current || dragStart.current.pointerId !== event.pointerId) return;
-    dragStart.current = null;
-    setDragging(false);
+  const stepAngle = (direction: -1 | 1) => {
+    const idx = ANGLES.findIndex((item) => item.id === angle);
+    const nextIdx = (idx + direction + ANGLES.length) % ANGLES.length;
+    setAngle(ANGLES[nextIdx].id);
   };
-
-  const rotateBy = (amount: number) => setRotation((current) => current + amount);
 
   return (
     <div
-      className={`phone-viewer${dragging ? " is-dragging" : ""}`}
+      className={`studio-gallery${zoomed ? " is-zoomed" : ""}`}
       role="group"
-      aria-label={`${finish.name} interactive iPhone viewer`}
-      onPointerDown={startDrag}
-      onPointerMove={movePhone}
-      onPointerUp={finishDrag}
-      onPointerCancel={finishDrag}
+      aria-label={`${finish.name} ${deviceName} gallery`}
     >
-      <div className="viewer-orbit" aria-hidden="true" />
-      <div
-        className="viewer-phone"
-        style={{ transform: `perspective(900px) rotateX(${pitch}deg) rotateY(${rotation}deg)` }}
-      >
-        <IPhoneModel3D
-          key={finish.imageUrl}
-          finish={finish}
-          dimensions={dimensions}
-          hasDynamicIsland={hasDynamicIsland}
-        />
+      <div className="gallery-toolbar">
+        <div
+          className="gallery-tabs"
+          role="tablist"
+          aria-label="Device angle"
+        >
+          {ANGLES.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-selected={angle === item.id}
+              className={`gallery-tab${angle === item.id ? " is-active" : ""}`}
+              onClick={() => setAngle(item.id)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          className={`gallery-zoom-btn${zoomed ? " is-active" : ""}`}
+          aria-pressed={zoomed}
+          aria-label={zoomed ? "Reset zoom" : "Zoom in on device"}
+          onClick={() => setZoomed((current) => !current)}
+        >
+          {zoomed ? "− 1×" : "+ Zoom"}
+        </button>
       </div>
+
+      <div
+        className="gallery-stage"
+        onClick={() => setZoomed((current) => !current)}
+        role="img"
+        aria-label={`${finish.name} iPhone ${angle} view, ${dimensions}`}
+      >
+        <div className="gallery-spotlight" aria-hidden="true" />
+        <div className="gallery-media">
+          {showPhoto && activeSrc ? (
+            <Image
+              key={activeSrc}
+              src={activeSrc}
+              alt={`${deviceName} in ${finish.name} (${angle} view)`}
+              width={720}
+              height={900}
+              priority
+              sizes="(max-width: 768px) 80vw, 420px"
+              onError={() => setFailedSrc(activeSrc)}
+              className="gallery-photo"
+            />
+          ) : (
+            <IPhoneStudioSvg
+              finish={finish}
+              frontStyle={resolvedFrontStyle}
+              cameraLayout={cameraLayout}
+              view={angle}
+              className="gallery-svg"
+            />
+          )}
+        </div>
+      </div>
+
       <button
         type="button"
-        className="viewer-control viewer-control-left"
-        aria-label="Rotate view left"
-        title="Rotate view left"
-        onClick={() => rotateBy(-45)}
+        className="gallery-nav gallery-nav-prev"
+        aria-label="Previous angle"
+        onClick={() => stepAngle(-1)}
       >
         ‹
       </button>
       <button
         type="button"
-        className="viewer-control viewer-control-right"
-        aria-label="Rotate view right"
-        title="Rotate view right"
-        onClick={() => rotateBy(45)}
+        className="gallery-nav gallery-nav-next"
+        aria-label="Next angle"
+        onClick={() => stepAngle(1)}
       >
         ›
       </button>
-      <button
-        type="button"
-        className="viewer-reset"
-        aria-label="Reset phone view"
-        title="Reset phone view"
-        onClick={() => { setRotation(0); setPitch(0); }}
-      >
-        ↻
-      </button>
-      <span className="viewer-hint" aria-hidden="true">
-        <span>↔</span> DRAG PHONE TO ROTATE
-      </span>
     </div>
   );
 }
