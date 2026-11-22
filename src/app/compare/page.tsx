@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useMemo, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { MOCK_IPHONES } from "@/data/mockIphones";
 import { useCompare } from "@/context/CompareContext";
 import IPhoneRender from "@/components/IPhoneRender";
@@ -9,22 +9,29 @@ import { comparisonRows } from "@/utils/compareSpecs";
 
 function CompareContent() {
   const params = useSearchParams();
-  const { slugs, setSlugs } = useCompare();
-  const [ready, setReady] = useState(false);
+  const pathname = usePathname();
+  const { slugs, hydrated, setSlugs } = useCompare();
+  const [urlInitialized, setUrlInitialized] = useState(false);
   const [diffs, setDiffs] = useState(false);
 
-  useEffect(() => setReady(true), []);
-
   useEffect(() => {
-    if (!ready) return;
+    if (!hydrated || urlInitialized) return;
     const fromUrl = (params.get("models") || "")
       .split(",")
       .filter((x) => MOCK_IPHONES.some((p) => p.slug === x))
       .slice(0, 4);
     if (fromUrl.length) setSlugs(fromUrl);
-    else if (slugs.length)
-      window.history.replaceState(null, "", `/compare?models=${slugs.join(",")}`);
-  }, [ready, params, setSlugs, slugs]);
+    setUrlInitialized(true);
+  }, [hydrated, params, setSlugs, urlInitialized]);
+
+  useEffect(() => {
+    if (!urlInitialized) return;
+    const nextModels = slugs.join(",");
+    const currentModels = new URLSearchParams(window.location.search).get("models") || "";
+    if (nextModels === currentModels) return;
+    const query = nextModels ? `?models=${encodeURIComponent(nextModels)}` : "";
+    window.history.replaceState(null, "", `${pathname}${query}`);
+  }, [pathname, slugs, urlInitialized]);
 
   const chosen = useMemo(
     () =>
@@ -42,6 +49,7 @@ function CompareContent() {
   };
 
   const unused = MOCK_IPHONES.filter((p) => !slugs.includes(p.slug));
+  const columnCount = Math.min(4, Math.max(2, chosen.length + 1));
 
   return (
     <main className="compare-page">
@@ -72,10 +80,7 @@ function CompareContent() {
           className="matrix"
           style={
             {
-              "--columns": Math.max(
-                2,
-                chosen.length + Math.max(0, 4 - chosen.length)
-              ),
+              "--columns": columnCount,
             } as React.CSSProperties
           }
         >
@@ -83,7 +88,7 @@ function CompareContent() {
             <div className="attribute-heading">
               DEVICE PROFILE <span>{chosen.length} SELECTED</span>
             </div>
-            {Array.from({ length: Math.max(2, chosen.length) }).map((_, i) => {
+            {Array.from({ length: columnCount }).map((_, i) => {
               const p = chosen[i];
               return (
                 <div
@@ -105,6 +110,8 @@ function CompareContent() {
                         </Link>
                         <button
                           className="remove-device"
+                          type="button"
+                          aria-label={`Remove ${p.name} from comparison`}
                           onClick={() => setAt(i, "")}
                         >
                           ×
@@ -119,6 +126,7 @@ function CompareContent() {
                       <span className="matrix-chip">{p.chipset.name}</span>
                       <select
                         className="column-select"
+                        aria-label={`Replace device in column ${i + 1}`}
                         value={p.slug}
                         onChange={(e) => setAt(i, e.target.value)}
                       >
@@ -136,6 +144,7 @@ function CompareContent() {
                       <b>Add iPhone</b>
                       <select
                         value=""
+                        aria-label={`Add iPhone to column ${i + 1}`}
                         onChange={(e) => setAt(i, e.target.value)}
                       >
                         <option value="">Choose device…</option>
@@ -174,7 +183,7 @@ function CompareContent() {
                     key={row.key}
                   >
                     <div className="matrix-label">{row.label}</div>
-                    {Array.from({ length: Math.max(2, chosen.length) }).map(
+                    {Array.from({ length: columnCount }).map(
                       (_, i) => {
                         const p = chosen[i];
                         if (!p)

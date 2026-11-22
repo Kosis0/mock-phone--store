@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { use, useState } from "react";
 import { MOCK_IPHONES } from "@/data/mockIphones";
-import IPhoneRender from "@/components/IPhoneRender";
+import PhoneViewer from "@/components/PhoneViewer";
 import { useCompare } from "@/context/CompareContext";
 
 function Table({
@@ -67,7 +67,7 @@ export default function Detail({
       <section className="detail-hero">
         <div className="detail-art">
           <span className="art-coordinate">IP / {p.releaseYear}</span>
-          <IPhoneRender
+          <PhoneViewer
             finish={f}
             dimensions={p.dimensionsMm}
             hasDynamicIsland={p.hasDynamicIsland}
@@ -76,10 +76,12 @@ export default function Detail({
             {p.finishes.map((c, i) => (
               <button
                 key={c.name}
+                  type="button"
                 onClick={() => setActive(i)}
                 style={{ background: c.hexCode }}
                 className={active === i ? "active" : ""}
                 aria-label={c.name}
+                  aria-pressed={active === i}
                 title={c.name}
               />
             ))}
@@ -124,7 +126,9 @@ export default function Detail({
           </div>
 
           <button
+              type="button"
             className="button button-primary detail-compare"
+              aria-pressed={slugs.includes(p.slug)}
             onClick={() => toggle(p.slug)}
           >
             {slugs.includes(p.slug)
