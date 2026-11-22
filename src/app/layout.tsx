@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./premium.css";
 import Navbar from "@/components/Navbar";
 import CompareDock from "@/components/CompareDock";
 import { CompareProvider } from "@/context/CompareContext";
