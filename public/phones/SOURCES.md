@@ -1,7 +1,7 @@
-# Product image sources
+# Phone Imagery Sources
 
-These Apple product renders are bundled locally for this prototype so the catalog does not depend on missing image files or a third-party image host. The images were retrieved from Apple's public store image CDN and resized to 720 × 900 pixels for this UI.
+All local device renders (`<stem>.png`, `<stem>-front.png`, `<stem>-back.png`) cover all 34 models (127 finishes, 381 transparent `640×800` RGBA PNG assets):
 
-Source pattern: `https://store.storeimages.cdn-apple.com/{store}/as-images.apple.com/is/{image-id}?wid=720&hei=900&fmt=png-alpha`
-
-Apple product imagery is used only to depict the matching iPhone hardware and finish. The image assets are temporary and can be replaced by the connected product backend later.
+- **Catalog & Front Views**: Normalized from official Apple Compare (`https://www.apple.com/iphone/compare/`) straight-on retina assets with anti-aliased flood-fill background transparency.
+- **Rear Views**: Extracted from unobstructed official Apple Store (`store.storeimages.cdn-apple.com` `fmt=png-alpha`) foreground-back assets for `iPhone Duo`, `iPhone 18 Pro Max`, `iPhone 18 Pro`, `iPhone 17 Pro Max`, and `iPhone 17 Pro`, and reconstructed seamlessly for straight-on lineup models.
+- **Fallback Vector Hardware (`IPhoneStudioSvg.tsx`)**: Hardware-accurate silhouette geometry covering `dual-fold` (`iPhone Duo` horizontal camera plateau & book fold), `plateau-triple`, `plateau-single`, `triple-square` (with/without LiDAR), `dual-vertical`, `dual-diagonal`, and classic Touch ID chassis.

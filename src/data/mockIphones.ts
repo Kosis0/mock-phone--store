@@ -75,8 +75,8 @@ export const MOCK_IPHONES: IPhone[] = [
     modem: "Apple C2 5G Modem",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 7 (Apple N1)", "Bluetooth 6", "UWB Gen 2", "Thread", "NFC"],
     finishes: makeFinishes([
-      ["Night Sky", "#1E2430", undefined, "#4B5D7A"],
-      ["Star White", "#EAE8E3", undefined, "#C7C4BC"],
+      ["Night Sky", "#1E2430", "iphone-duo-night-sky", "#4B5D7A"],
+      ["Star White", "#EAE8E3", "iphone-duo-star-white", "#C7C4BC"],
     ]),
     variants: [
       { modelNumber: "A3447", identifier: "iPhone19,4", region: "United States", simConfiguration: "Dual eSIM" },
@@ -141,10 +141,10 @@ export const MOCK_IPHONES: IPhone[] = [
     modem: "Apple C2 5G Modem",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 7 (Apple N1)", "Bluetooth 6", "UWB Gen 2", "Thread", "NFC"],
     finishes: makeFinishes([
-      ["Burgundy", "#5F232C", undefined, "#9B4250"],
-      ["Glacier", "#B9CBD8", undefined, "#DCE8F0"],
-      ["Silver", "#D8D9D6", undefined, "#F2F2F0"],
-      ["Black", "#202124", undefined, "#42454B"],
+      ["Burgundy", "#5F232C", "iphone-18-pro-max-burgundy", "#9B4250"],
+      ["Glacier", "#B9CBD8", "iphone-18-pro-max-glacier", "#DCE8F0"],
+      ["Silver", "#D8D9D6", "iphone-18-pro-max-silver", "#F2F2F0"],
+      ["Black", "#202124", "iphone-18-pro-max-black", "#42454B"],
     ]),
     variants: [
       { modelNumber: "A3473", identifier: "iPhone19,2", region: "United States", simConfiguration: "Dual eSIM" },
@@ -210,10 +210,10 @@ export const MOCK_IPHONES: IPhone[] = [
     modem: "Apple C2 5G Modem",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 7 (Apple N1)", "Bluetooth 6", "UWB Gen 2", "Thread", "NFC"],
     finishes: makeFinishes([
-      ["Burgundy", "#5F232C", undefined, "#9B4250"],
-      ["Glacier", "#B9CBD8", undefined, "#DCE8F0"],
-      ["Silver", "#D8D9D6", undefined, "#F2F2F0"],
-      ["Black", "#202124", undefined, "#42454B"],
+      ["Burgundy", "#5F232C", "iphone-18-pro-burgundy", "#9B4250"],
+      ["Glacier", "#B9CBD8", "iphone-18-pro-glacier", "#DCE8F0"],
+      ["Silver", "#D8D9D6", "iphone-18-pro-silver", "#F2F2F0"],
+      ["Black", "#202124", "iphone-18-pro-black", "#42454B"],
     ]),
     variants: [
       { modelNumber: "A3472", identifier: "iPhone19,1", region: "United States", simConfiguration: "Dual eSIM" },
@@ -276,9 +276,9 @@ export const MOCK_IPHONES: IPhone[] = [
     modem: "Apple C1X 5G Modem",
     wireless: ["5G Sub-6", "Wi-Fi 6", "Bluetooth 5.3", "NFC"],
     finishes: makeFinishes([
-      ["Soft Pink", "#F0D2D9", undefined, "#F8E5EA"],
-      ["White", "#F2F2EF", undefined, "#FFFFFF"],
-      ["Black", "#252629", undefined, "#4A4D54"],
+      ["Soft Pink", "#F0D2D9", "iphone-17e-soft-pink", "#F8E5EA"],
+      ["White", "#F2F2EF", "iphone-17e-white", "#FFFFFF"],
+      ["Black", "#252629", "iphone-17e-black", "#4A4D54"],
     ]),
     variants: [
       { modelNumber: "A3575", identifier: "iPhone18,5", region: "United States / Canada / Japan", simConfiguration: "Dual eSIM" },
@@ -346,9 +346,9 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 7 (Apple N1)", "Bluetooth 6", "UWB Gen 2", "Thread", "NFC"],
     finishes: makeFinishes([
-      ["Cosmic Orange", "#D77A47", "iphone-17-pro-cosmic-orange"],
-      ["Deep Blue", "#43516C", "iphone-17-pro-deep-blue"],
-      ["Silver", "#D6D6D3", "iphone-17-pro-silver"],
+      ["Cosmic Orange", "#D77A47", "iphone-17-pro-max-cosmic-orange"],
+      ["Deep Blue", "#43516C", "iphone-17-pro-max-deep-blue"],
+      ["Silver", "#D6D6D3", "iphone-17-pro-max-silver"],
     ]),
     splineUrl: "/models/iphone_17_pro_max.glb",
     variants: [
@@ -480,10 +480,10 @@ export const MOCK_IPHONES: IPhone[] = [
     modem: "Apple C1X 5G Modem",
     wireless: ["5G Sub-6", "Wi-Fi 7 (Apple N1)", "Bluetooth 6", "UWB Gen 2", "Thread", "NFC"],
     finishes: makeFinishes([
-      ["Sky Blue", "#B9D3E6", undefined, "#DCEAF5"],
-      ["Light Gold", "#E5D8BD", undefined, "#F4ECDB"],
-      ["Cloud White", "#F1F1EE", undefined, "#FFFFFF"],
-      ["Space Black", "#232427", undefined, "#46494F"],
+      ["Sky Blue", "#B9D3E6", "iphone-air-sky-blue", "#DCEAF5"],
+      ["Light Gold", "#E5D8BD", "iphone-air-light-gold", "#F4ECDB"],
+      ["Cloud White", "#F1F1EE", "iphone-air-cloud-white", "#FFFFFF"],
+      ["Space Black", "#232427", "iphone-air-space-black", "#46494F"],
     ]),
     variants: [
       { modelNumber: "A3260", identifier: "iPhone18,4", region: "United States / Canada / Mexico", simConfiguration: "Dual eSIM" },
@@ -610,8 +610,8 @@ export const MOCK_IPHONES: IPhone[] = [
     modem: "Apple C1 5G Modem",
     wireless: ["5G Sub-6", "Wi-Fi 6", "Bluetooth 5.3", "NFC"],
     finishes: makeFinishes([
-      ["Black", "#252629", undefined, "#494C52"],
-      ["White", "#F2F2EF", undefined, "#FFFFFF"],
+      ["Black", "#252629", "iphone-16e-black", "#494C52"],
+      ["White", "#F2F2EF", "iphone-16e-white", "#FFFFFF"],
     ]),
     variants: [
       { modelNumber: "A3212", identifier: "iPhone17,5", region: "United States", simConfiguration: "Dual eSIM" },
@@ -679,9 +679,9 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 7", "Bluetooth 5.3", "UWB Gen 2", "Thread", "NFC"],
     finishes: makeFinishes([
-      ["Desert Titanium", "#B59B7B", "iphone-16-pro-desert-titanium"],
-      ["Black Titanium", "#373737", "iphone-16-pro-black-titanium"],
-      ["Natural Titanium", "#AAA69E", "iphone-16-pro-natural-titanium"],
+      ["Desert Titanium", "#B59B7B", "iphone-16-pro-max-desert-titanium"],
+      ["Black Titanium", "#373737", "iphone-16-pro-max-black-titanium"],
+      ["Natural Titanium", "#AAA69E", "iphone-16-pro-max-natural-titanium"],
     ]),
     variants: [
       { modelNumber: "A3084", identifier: "iPhone17,2", region: "United States", simConfiguration: "Dual eSIM" },
@@ -810,9 +810,9 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 7", "Bluetooth 5.3", "UWB Gen 2", "Thread", "NFC"],
     finishes: makeFinishes([
-      ["Ultramarine", "#5267BD", "iphone-16-ultramarine"],
-      ["Teal", "#91B7AE", "iphone-16-teal"],
-      ["Black", "#292929", "iphone-16-black"],
+      ["Ultramarine", "#5267BD", "iphone-16-plus-ultramarine"],
+      ["Teal", "#91B7AE", "iphone-16-plus-teal"],
+      ["Black", "#292929", "iphone-16-plus-black"],
     ]),
     variants: [
       { modelNumber: "A3082", identifier: "iPhone17,4", region: "United States", simConfiguration: "Dual eSIM" },
@@ -945,9 +945,9 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6E", "Bluetooth 5.3", "UWB Gen 2", "Thread", "NFC"],
     finishes: makeFinishes([
-      ["Natural Titanium", "#AAA69E", "iphone-15-pro-natural-titanium"],
-      ["Blue Titanium", "#66758C", "iphone-15-pro-blue-titanium"],
-      ["Black Titanium", "#373737", "iphone-15-pro-black-titanium"],
+      ["Natural Titanium", "#AAA69E", "iphone-15-pro-max-natural-titanium"],
+      ["Blue Titanium", "#66758C", "iphone-15-pro-max-blue-titanium"],
+      ["Black Titanium", "#373737", "iphone-15-pro-max-black-titanium"],
     ]),
     variants: [
       { modelNumber: "A2849", identifier: "iPhone16,2", region: "United States", simConfiguration: "Dual eSIM" },
@@ -1076,9 +1076,9 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.3", "UWB Gen 2", "NFC"],
     finishes: makeFinishes([
-      ["Black", "#292929", "iphone-15-black"],
-      ["Blue", "#A8BAC6", "iphone-15-blue"],
-      ["Pink", "#EDC7C4", "iphone-15-pink"],
+      ["Black", "#292929", "iphone-15-plus-black"],
+      ["Blue", "#A8BAC6", "iphone-15-plus-blue"],
+      ["Pink", "#EDC7C4", "iphone-15-plus-pink"],
     ]),
     variants: [
       { modelNumber: "A2847", identifier: "iPhone15,5", region: "United States", simConfiguration: "Dual eSIM" },
@@ -1211,10 +1211,10 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.3", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Deep Purple", "#594F63", undefined, "#8A7B99"],
-      ["Space Black", "#2E2C2E", undefined, "#525054"],
-      ["Gold", "#E3D1AE", undefined, "#F3E7CE"],
-      ["Silver", "#E2E3E0", undefined, "#F7F7F5"],
+      ["Deep Purple", "#594F63", "iphone-14-pro-max-deep-purple", "#8A7B99"],
+      ["Space Black", "#2E2C2E", "iphone-14-pro-max-space-black", "#525054"],
+      ["Gold", "#E3D1AE", "iphone-14-pro-max-gold", "#F3E7CE"],
+      ["Silver", "#E2E3E0", "iphone-14-pro-max-silver", "#F7F7F5"],
     ]),
     variants: [
       { modelNumber: "A2651", identifier: "iPhone15,3", region: "United States", simConfiguration: "Dual eSIM" },
@@ -1278,10 +1278,10 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.3", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Deep Purple", "#594F63", undefined, "#8A7B99"],
-      ["Space Black", "#2E2C2E", undefined, "#525054"],
-      ["Gold", "#E3D1AE", undefined, "#F3E7CE"],
-      ["Silver", "#E2E3E0", undefined, "#F7F7F5"],
+      ["Deep Purple", "#594F63", "iphone-14-pro-deep-purple", "#8A7B99"],
+      ["Space Black", "#2E2C2E", "iphone-14-pro-space-black", "#525054"],
+      ["Gold", "#E3D1AE", "iphone-14-pro-gold", "#F3E7CE"],
+      ["Silver", "#E2E3E0", "iphone-14-pro-silver", "#F7F7F5"],
     ]),
     variants: [
       { modelNumber: "A2650", identifier: "iPhone15,2", region: "United States", simConfiguration: "Dual eSIM" },
@@ -1344,11 +1344,11 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.3", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Blue", "#A0B4C7", undefined, "#CBD9E6"],
-      ["Midnight", "#232931", undefined, "#434E5C"],
-      ["Starlight", "#EFECE6", undefined, "#FFFFFF"],
-      ["Purple", "#D9D2E3", undefined, "#EDE8F5"],
-      ["Yellow", "#F4E17D", undefined, "#FAF0B5"],
+      ["Blue", "#A0B4C7", "iphone-14-plus-blue", "#CBD9E6"],
+      ["Midnight", "#232931", "iphone-14-plus-midnight", "#434E5C"],
+      ["Starlight", "#EFECE6", "iphone-14-plus-starlight", "#FFFFFF"],
+      ["Purple", "#D9D2E3", "iphone-14-plus-purple", "#EDE8F5"],
+      ["Yellow", "#F4E17D", "iphone-14-plus-yellow", "#FAF0B5"],
     ]),
     variants: [
       { modelNumber: "A2632", identifier: "iPhone14,8", region: "United States", simConfiguration: "Dual eSIM" },
@@ -1411,11 +1411,11 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.3", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Blue", "#A0B4C7", undefined, "#CBD9E6"],
-      ["Midnight", "#232931", undefined, "#434E5C"],
-      ["Starlight", "#EFECE6", undefined, "#FFFFFF"],
-      ["Purple", "#D9D2E3", undefined, "#EDE8F5"],
-      ["(PRODUCT)RED", "#C92434", undefined, "#E55A67"],
+      ["Blue", "#A0B4C7", "iphone-14-blue", "#CBD9E6"],
+      ["Midnight", "#232931", "iphone-14-midnight", "#434E5C"],
+      ["Starlight", "#EFECE6", "iphone-14-starlight", "#FFFFFF"],
+      ["Purple", "#D9D2E3", "iphone-14-purple", "#EDE8F5"],
+      ["(PRODUCT)RED", "#C92434", "iphone-14-product-red", "#E55A67"],
     ]),
     variants: [
       { modelNumber: "A2649", identifier: "iPhone14,7", region: "United States", simConfiguration: "Dual eSIM" },
@@ -1546,11 +1546,11 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Sierra Blue", "#9BB5CE", undefined, "#C6D8E8"],
-      ["Alpine Green", "#4E6151", undefined, "#748C78"],
-      ["Graphite", "#484744", undefined, "#6E6D68"],
-      ["Gold", "#E5D3B3", undefined, "#F4E9D4"],
-      ["Silver", "#E2E3E0", undefined, "#F7F7F5"],
+      ["Sierra Blue", "#9BB5CE", "iphone-13-pro-max-sierra-blue", "#C6D8E8"],
+      ["Alpine Green", "#4E6151", "iphone-13-pro-max-alpine-green", "#748C78"],
+      ["Graphite", "#484744", "iphone-13-pro-max-graphite", "#6E6D68"],
+      ["Gold", "#E5D3B3", "iphone-13-pro-max-gold", "#F4E9D4"],
+      ["Silver", "#E2E3E0", "iphone-13-pro-max-silver", "#F7F7F5"],
     ]),
     variants: [
       { modelNumber: "A2484", identifier: "iPhone14,3", region: "United States", simConfiguration: "Nano-SIM + Dual eSIM" },
@@ -1614,11 +1614,11 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Sierra Blue", "#9BB5CE", undefined, "#C6D8E8"],
-      ["Alpine Green", "#4E6151", undefined, "#748C78"],
-      ["Graphite", "#484744", undefined, "#6E6D68"],
-      ["Gold", "#E5D3B3", undefined, "#F4E9D4"],
-      ["Silver", "#E2E3E0", undefined, "#F7F7F5"],
+      ["Sierra Blue", "#9BB5CE", "iphone-13-pro-sierra-blue", "#C6D8E8"],
+      ["Alpine Green", "#4E6151", "iphone-13-pro-alpine-green", "#748C78"],
+      ["Graphite", "#484744", "iphone-13-pro-graphite", "#6E6D68"],
+      ["Gold", "#E5D3B3", "iphone-13-pro-gold", "#F4E9D4"],
+      ["Silver", "#E2E3E0", "iphone-13-pro-silver", "#F7F7F5"],
     ]),
     variants: [
       { modelNumber: "A2483", identifier: "iPhone14,2", region: "United States", simConfiguration: "Nano-SIM + Dual eSIM" },
@@ -1681,11 +1681,11 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Midnight", "#232931", undefined, "#424D5C"],
-      ["Starlight", "#EFECE6", undefined, "#FFFFFF"],
-      ["Blue", "#2E607D", undefined, "#568CAB"],
-      ["Green", "#364A3B", undefined, "#58735F"],
-      ["Pink", "#F6DFE2", undefined, "#FCEFF1"],
+      ["Midnight", "#232931", "iphone-13-midnight", "#424D5C"],
+      ["Starlight", "#EFECE6", "iphone-13-starlight", "#FFFFFF"],
+      ["Blue", "#2E607D", "iphone-13-blue", "#568CAB"],
+      ["Green", "#364A3B", "iphone-13-green", "#58735F"],
+      ["Pink", "#F6DFE2", "iphone-13-pink", "#FCEFF1"],
     ]),
     variants: [
       { modelNumber: "A2482", identifier: "iPhone14,5", region: "United States", simConfiguration: "Nano-SIM + Dual eSIM" },
@@ -1748,11 +1748,11 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Green", "#364A3B", undefined, "#58735F"],
-      ["Midnight", "#232931", undefined, "#424D5C"],
-      ["Starlight", "#EFECE6", undefined, "#FFFFFF"],
-      ["Blue", "#2E607D", undefined, "#568CAB"],
-      ["Pink", "#F6DFE2", undefined, "#FCEFF1"],
+      ["Green", "#364A3B", "iphone-13-mini-green", "#58735F"],
+      ["Midnight", "#232931", "iphone-13-mini-midnight", "#424D5C"],
+      ["Starlight", "#EFECE6", "iphone-13-mini-starlight", "#FFFFFF"],
+      ["Blue", "#2E607D", "iphone-13-mini-blue", "#568CAB"],
+      ["Pink", "#F6DFE2", "iphone-13-mini-pink", "#FCEFF1"],
     ]),
     variants: [
       { modelNumber: "A2481", identifier: "iPhone14,4", region: "United States", simConfiguration: "Nano-SIM + Dual eSIM" },
@@ -1820,10 +1820,10 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Pacific Blue", "#324D5C", undefined, "#56788C"],
-      ["Graphite", "#484744", undefined, "#6E6D68"],
-      ["Gold", "#E5D3B3", undefined, "#F4E9D4"],
-      ["Silver", "#E2E3E0", undefined, "#F7F7F5"],
+      ["Pacific Blue", "#324D5C", "iphone-12-pro-max-pacific-blue", "#56788C"],
+      ["Graphite", "#484744", "iphone-12-pro-max-graphite", "#6E6D68"],
+      ["Gold", "#E5D3B3", "iphone-12-pro-max-gold", "#F4E9D4"],
+      ["Silver", "#E2E3E0", "iphone-12-pro-max-silver", "#F7F7F5"],
     ]),
     variants: [
       { modelNumber: "A2342", identifier: "iPhone13,4", region: "United States", simConfiguration: "Nano-SIM + eSIM" },
@@ -1887,10 +1887,10 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Pacific Blue", "#324D5C", undefined, "#56788C"],
-      ["Graphite", "#484744", undefined, "#6E6D68"],
-      ["Gold", "#E5D3B3", undefined, "#F4E9D4"],
-      ["Silver", "#E2E3E0", undefined, "#F7F7F5"],
+      ["Pacific Blue", "#324D5C", "iphone-12-pro-pacific-blue", "#56788C"],
+      ["Graphite", "#484744", "iphone-12-pro-graphite", "#6E6D68"],
+      ["Gold", "#E5D3B3", "iphone-12-pro-gold", "#F4E9D4"],
+      ["Silver", "#E2E3E0", "iphone-12-pro-silver", "#F7F7F5"],
     ]),
     variants: [
       { modelNumber: "A2341", identifier: "iPhone13,3", region: "United States", simConfiguration: "Nano-SIM + eSIM" },
@@ -1953,11 +1953,11 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Blue", "#1B4674", undefined, "#4273A8"],
-      ["Purple", "#B8AFE0", undefined, "#D5D0F0"],
-      ["Green", "#D6E9D7", undefined, "#ECF7EC"],
-      ["Black", "#242528", undefined, "#494B52"],
-      ["White", "#F2F1EC", undefined, "#FFFFFF"],
+      ["Blue", "#1B4674", "iphone-12-blue", "#4273A8"],
+      ["Purple", "#B8AFE0", "iphone-12-purple", "#D5D0F0"],
+      ["Green", "#D6E9D7", "iphone-12-green", "#ECF7EC"],
+      ["Black", "#242528", "iphone-12-black", "#494B52"],
+      ["White", "#F2F1EC", "iphone-12-white", "#FFFFFF"],
     ]),
     variants: [
       { modelNumber: "A2172", identifier: "iPhone13,2", region: "United States", simConfiguration: "Nano-SIM + eSIM" },
@@ -2020,11 +2020,11 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["5G mmWave & Sub-6", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Blue", "#1B4674", undefined, "#4273A8"],
-      ["Purple", "#B8AFE0", undefined, "#D5D0F0"],
-      ["Green", "#D6E9D7", undefined, "#ECF7EC"],
-      ["Black", "#242528", undefined, "#494B52"],
-      ["White", "#F2F1EC", undefined, "#FFFFFF"],
+      ["Blue", "#1B4674", "iphone-12-mini-blue", "#4273A8"],
+      ["Purple", "#B8AFE0", "iphone-12-mini-purple", "#D5D0F0"],
+      ["Green", "#D6E9D7", "iphone-12-mini-green", "#ECF7EC"],
+      ["Black", "#242528", "iphone-12-mini-black", "#494B52"],
+      ["White", "#F2F1EC", "iphone-12-mini-white", "#FFFFFF"],
     ]),
     variants: [
       { modelNumber: "A2176", identifier: "iPhone13,1", region: "United States", simConfiguration: "Nano-SIM + eSIM" },
@@ -2085,9 +2085,9 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Touch ID (Home Button)",
     wireless: ["4G Gigabit LTE", "Wi-Fi 6", "Bluetooth 5.0", "NFC"],
     finishes: makeFinishes([
-      ["Black", "#222326", undefined, "#46484E"],
-      ["White", "#F2F1EC", undefined, "#FFFFFF"],
-      ["(PRODUCT)RED", "#C92434", undefined, "#E55A67"],
+      ["Black", "#222326", "iphone-se-2-black", "#46484E"],
+      ["White", "#F2F1EC", "iphone-se-2-white", "#FFFFFF"],
+      ["(PRODUCT)RED", "#C92434", "iphone-se-2-product-red", "#E55A67"],
     ]),
     variants: [
       { modelNumber: "A2275", identifier: "iPhone12,8", region: "United States / Canada", simConfiguration: "Nano-SIM + eSIM" },
@@ -2154,10 +2154,10 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["4G Gigabit LTE", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Midnight Green", "#4B564D", undefined, "#718074"],
-      ["Space Gray", "#4A4A4C", undefined, "#707073"],
-      ["Silver", "#E2E3E0", undefined, "#F7F7F5"],
-      ["Gold", "#E6D2B5", undefined, "#F5E8D5"],
+      ["Midnight Green", "#4B564D", "iphone-11-pro-max-midnight-green", "#718074"],
+      ["Space Gray", "#4A4A4C", "iphone-11-pro-max-space-gray", "#707073"],
+      ["Silver", "#E2E3E0", "iphone-11-pro-max-silver", "#F7F7F5"],
+      ["Gold", "#E6D2B5", "iphone-11-pro-max-gold", "#F5E8D5"],
     ]),
     variants: [
       { modelNumber: "A2161", identifier: "iPhone12,5", region: "United States / Canada", simConfiguration: "Nano-SIM + eSIM" },
@@ -2220,10 +2220,10 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["4G Gigabit LTE", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Midnight Green", "#4B564D", undefined, "#718074"],
-      ["Space Gray", "#4A4A4C", undefined, "#707073"],
-      ["Silver", "#E2E3E0", undefined, "#F7F7F5"],
-      ["Gold", "#E6D2B5", undefined, "#F5E8D5"],
+      ["Midnight Green", "#4B564D", "iphone-11-pro-midnight-green", "#718074"],
+      ["Space Gray", "#4A4A4C", "iphone-11-pro-space-gray", "#707073"],
+      ["Silver", "#E2E3E0", "iphone-11-pro-silver", "#F7F7F5"],
+      ["Gold", "#E6D2B5", "iphone-11-pro-gold", "#F5E8D5"],
     ]),
     variants: [
       { modelNumber: "A2160", identifier: "iPhone12,3", region: "United States / Canada", simConfiguration: "Nano-SIM + eSIM" },
@@ -2285,12 +2285,12 @@ export const MOCK_IPHONES: IPhone[] = [
     biometrics: "Face ID",
     wireless: ["4G Gigabit LTE", "Wi-Fi 6", "Bluetooth 5.0", "UWB U1", "NFC"],
     finishes: makeFinishes([
-      ["Purple", "#D4CBE2", undefined, "#EAE5F2"],
-      ["Green", "#BFE0D0", undefined, "#DEF2E8"],
-      ["Yellow", "#FCE78A", undefined, "#FEF4C5"],
-      ["Black", "#252629", undefined, "#4A4C52"],
-      ["White", "#F2F1EC", undefined, "#FFFFFF"],
-      ["(PRODUCT)RED", "#C92434", undefined, "#E55A67"],
+      ["Purple", "#D4CBE2", "iphone-11-purple", "#EAE5F2"],
+      ["Green", "#BFE0D0", "iphone-11-green", "#DEF2E8"],
+      ["Yellow", "#FCE78A", "iphone-11-yellow", "#FEF4C5"],
+      ["Black", "#252629", "iphone-11-black", "#4A4C52"],
+      ["White", "#F2F1EC", "iphone-11-white", "#FFFFFF"],
+      ["(PRODUCT)RED", "#C92434", "iphone-11-product-red", "#E55A67"],
     ]),
     variants: [
       { modelNumber: "A2111", identifier: "iPhone12,1", region: "United States / Canada", simConfiguration: "Nano-SIM + eSIM" },

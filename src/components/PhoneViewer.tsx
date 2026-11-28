@@ -95,12 +95,14 @@ export default function PhoneViewer({
         </button>
       </div>
 
-      <div
-        className="gallery-stage"
-        onClick={() => setZoomed((current) => !current)}
-        role="img"
-        aria-label={`${finish.name} iPhone ${angle} view, ${dimensions}`}
-      >
+      <div className="gallery-stage">
+        <button
+          type="button"
+          className="gallery-stage-hit"
+          onClick={() => setZoomed((current) => !current)}
+          aria-pressed={zoomed}
+          aria-label={`${finish.name} iPhone ${angle} preview, ${dimensions} — toggle zoom`}
+        />
         <div className="gallery-spotlight" aria-hidden="true" />
         <div className="gallery-media">
           {showPhoto && activeSrc ? (

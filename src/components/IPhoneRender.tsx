@@ -41,10 +41,11 @@ export default function IPhoneRender({
         <Image
           src={imageUrl}
           alt=""
-          width={720}
-          height={900}
+          width={640}
+          height={800}
           priority={priority}
-          sizes="(max-width: 680px) 60vw, 280px"
+          fetchPriority={priority ? "high" : undefined}
+          sizes="(max-width: 640px) 46vw, (max-width: 1024px) 32vw, 280px"
           onError={() => setFailedImage(imageUrl)}
           className="phone-image"
         />
